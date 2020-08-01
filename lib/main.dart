@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xPuzzle/components/number_block.dart';
 
 void main() {
   runApp(XPuzzleApp());
@@ -61,34 +62,10 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('1')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('2')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('3')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('4')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
+                            NumberBlock('1'),
+                            NumberBlock('2'),
+                            NumberBlock('3'),
+                            NumberBlock('4'),
                           ],
                         )),
                     Expanded(
@@ -97,34 +74,10 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('5')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('6')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('7')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('8')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
+                            NumberBlock('5'),
+                            NumberBlock('6'),
+                            NumberBlock('7'),
+                            NumberBlock('8'),
                           ],
                         )),
                     Expanded(
@@ -133,34 +86,10 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('9')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('10')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('11')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('12')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
+                            NumberBlock('9'),
+                            NumberBlock('10'),
+                            NumberBlock('11'),
+                            NumberBlock('12'),
                           ],
                         )),
                     Expanded(
@@ -169,34 +98,10 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('13')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('14')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('15')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
-                            Expanded(
-                              child: Container(
-                                  child: FlatButton(
-                                      onPressed: null, child: Text('')),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.blue))),
-                            ),
+                            NumberBlock('13'),
+                            NumberBlock('14'),
+                            NumberBlock('15'),
+                            NumberBlock(''),
                           ],
                         ))
                   ],
