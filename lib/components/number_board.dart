@@ -8,18 +8,38 @@ class NumberBoard extends StatefulWidget {
 }
 
 class _NumberBoardState extends State<NumberBoard> {
+  List<String> _numeros = List();
+
+  @override
+  void initState() {
+    _gerarNumeros();
+    super.initState();
+  }
+
+  /// Gera a lista de números com valores embaralhados
+  void _gerarNumeros() {
+    _numeros = [for (var i = 1; i < 16; i++) i.toString()];
+    _numeros.add('');
+    _numeros.shuffle();
+  }
+
+  /// Gera as linhas de números a partir da divisão da lista de números
+  List<Widget> _gerarLinhas() {
+    List<Widget> _linhas = List();
+    _linhas.add(NumberRow(_numeros.sublist(0, 4)));
+    _linhas.add(NumberRow(_numeros.sublist(4, 8)));
+    _linhas.add(NumberRow(_numeros.sublist(8, 12)));
+    _linhas.add(NumberRow(_numeros.sublist(12, 16)));
+    return _linhas;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            NumberRow(['1', '2', '3', '4']),
-            NumberRow(['5', '6', '7', '8']),
-            NumberRow(['9', '10', '11', '12']),
-            NumberRow(['13', '14', '15', '']),
-          ],
+          children: _gerarLinhas(),
         ),
         flex: 4);
   }
