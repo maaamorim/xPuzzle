@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xPuzzle/components/number_block.dart';
+import 'package:xPuzzle/components/number_board.dart';
 
 void main() {
   runApp(XPuzzleApp());
@@ -51,62 +51,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 flex: 1),
-            Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                        flex: 1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            NumberBlock('1'),
-                            NumberBlock('2'),
-                            NumberBlock('3'),
-                            NumberBlock('4'),
-                          ],
-                        )),
-                    Expanded(
-                        flex: 1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            NumberBlock('5'),
-                            NumberBlock('6'),
-                            NumberBlock('7'),
-                            NumberBlock('8'),
-                          ],
-                        )),
-                    Expanded(
-                        flex: 1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            NumberBlock('9'),
-                            NumberBlock('10'),
-                            NumberBlock('11'),
-                            NumberBlock('12'),
-                          ],
-                        )),
-                    Expanded(
-                        flex: 1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            NumberBlock('13'),
-                            NumberBlock('14'),
-                            NumberBlock('15'),
-                            NumberBlock(''),
-                          ],
-                        ))
-                  ],
-                ),
-                flex: 4),
+            NumberBoard(),
             Spacer(flex: 1)
           ],
         ),
