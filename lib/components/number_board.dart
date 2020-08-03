@@ -8,13 +8,13 @@ class NumberBoard extends StatefulWidget {
 }
 
 class _NumberBoardState extends State<NumberBoard> {
-  List<List<String>> _numeros = List<List<String>>();
-  List<Widget> _widgetNumeros = List();
+  List<List<String>> _matrizNumeros = List<List<String>>();
+  List<Widget> _widgetMatrizNumeros = List();
 
   @override
   void initState() {
     _gerarNumeros();
-    _widgetNumeros = _gerarLinhas();
+    _widgetMatrizNumeros = _gerarLinhas();
     super.initState();
   }
 
@@ -26,45 +26,45 @@ class _NumberBoardState extends State<NumberBoard> {
     if (_movimento != 'X') {
       String aux;
       switch (_movimento) {
-        case 'T':
+        case 'W':
           setState(() {
-            aux = _numeros[_posicao[0]][_posicao[1]];
-            _numeros[_posicao[0]][_posicao[1]] =
-                _numeros[_posicao[0] - 1][_posicao[1]];
-            _numeros[_posicao[0] - 1][_posicao[1]] = aux;
-            _widgetNumeros = _gerarLinhas();
+            aux = _matrizNumeros[_posicao[0]][_posicao[1]];
+            _matrizNumeros[_posicao[0]][_posicao[1]] =
+                _matrizNumeros[_posicao[0] - 1][_posicao[1]];
+            _matrizNumeros[_posicao[0] - 1][_posicao[1]] = aux;
+            _widgetMatrizNumeros = _gerarLinhas();
           });
-          print(_numeros);
+          print(_matrizNumeros);
           break;
         case 'D':
           setState(() {
-            aux = _numeros[_posicao[0]][_posicao[1]];
-            _numeros[_posicao[0]][_posicao[1]] =
-                _numeros[_posicao[0]][_posicao[1] + 1];
-            _numeros[_posicao[0]][_posicao[1] + 1] = aux;
-            _widgetNumeros = _gerarLinhas();
+            aux = _matrizNumeros[_posicao[0]][_posicao[1]];
+            _matrizNumeros[_posicao[0]][_posicao[1]] =
+                _matrizNumeros[_posicao[0]][_posicao[1] + 1];
+            _matrizNumeros[_posicao[0]][_posicao[1] + 1] = aux;
+            _widgetMatrizNumeros = _gerarLinhas();
           });
-          print(_numeros);
+          print(_matrizNumeros);
           break;
-        case 'B':
+        case 'S':
           setState(() {
-            aux = _numeros[_posicao[0]][_posicao[1]];
-            _numeros[_posicao[0]][_posicao[1]] =
-                _numeros[_posicao[0] + 1][_posicao[1]];
-            _numeros[_posicao[0] + 1][_posicao[1]] = aux;
-            _widgetNumeros = _gerarLinhas();
+            aux = _matrizNumeros[_posicao[0]][_posicao[1]];
+            _matrizNumeros[_posicao[0]][_posicao[1]] =
+                _matrizNumeros[_posicao[0] + 1][_posicao[1]];
+            _matrizNumeros[_posicao[0] + 1][_posicao[1]] = aux;
+            _widgetMatrizNumeros = _gerarLinhas();
           });
-          print(_numeros);
+          print(_matrizNumeros);
           break;
-        case 'E':
+        case 'A':
           setState(() {
-            aux = _numeros[_posicao[0]][_posicao[1]];
-            _numeros[_posicao[0]][_posicao[1]] =
-                _numeros[_posicao[0]][_posicao[1] - 1];
-            _numeros[_posicao[0]][_posicao[1] - 1] = aux;
-            _widgetNumeros = _gerarLinhas();
+            aux = _matrizNumeros[_posicao[0]][_posicao[1]];
+            _matrizNumeros[_posicao[0]][_posicao[1]] =
+                _matrizNumeros[_posicao[0]][_posicao[1] - 1];
+            _matrizNumeros[_posicao[0]][_posicao[1] - 1] = aux;
+            _widgetMatrizNumeros = _gerarLinhas();
           });
-          print(_numeros);
+          print(_matrizNumeros);
           break;
         default:
       }
@@ -76,7 +76,7 @@ class _NumberBoardState extends State<NumberBoard> {
   List<int> _recuperarPosicao(String numero) {
     for (var i = 0; i < 4; i++) {
       for (var j = 0; j < 4; j++) {
-        if (_numeros[i][j] == numero) {
+        if (_matrizNumeros[i][j] == numero) {
           return [i, j];
         }
       }
@@ -85,38 +85,38 @@ class _NumberBoardState extends State<NumberBoard> {
   }
 
   /// Retorna a possível direção que o elemento na [posicao] poderá se mover,
-  /// no formato 'T' (para cima), 'D' (direita), 'B' (baixo), 'E' (esquerda) ou 'X'
+  /// no formato 'W' (para cima), 'D' (direita), 'S' (baixo), 'A' (esquerda) ou 'X'
   /// caso o elemento não possa se mover
   String _direcaoMovimento(List<int> posicao) {
     int _i = posicao[0];
     int _j = posicao[1];
     List<String> _movimentos = List();
     try {
-      _movimentos.add(_numeros[_i - 1][_j]);
+      _movimentos.add(_matrizNumeros[_i - 1][_j]);
     } on RangeError {
       _movimentos.add('X');
     }
     try {
-      _movimentos.add(_numeros[_i][_j + 1]);
+      _movimentos.add(_matrizNumeros[_i][_j + 1]);
     } on RangeError {
       _movimentos.add('X');
     }
     try {
-      _movimentos.add(_numeros[_i + 1][_j]);
+      _movimentos.add(_matrizNumeros[_i + 1][_j]);
     } on RangeError {
       _movimentos.add('X');
     }
     try {
-      _movimentos.add(_numeros[_i][_j - 1]);
+      _movimentos.add(_matrizNumeros[_i][_j - 1]);
     } on RangeError {
       _movimentos.add('X');
     }
     for (var i = 0; i < 4; i++) {
       if (_movimentos[i] == '') {
-        if (i == 0) return 'T';
+        if (i == 0) return 'W';
         if (i == 1) return 'D';
-        if (i == 2) return 'B';
-        if (i == 3) return 'E';
+        if (i == 2) return 'S';
+        if (i == 3) return 'A';
       }
     }
     return 'X';
@@ -133,19 +133,19 @@ class _NumberBoardState extends State<NumberBoard> {
     }
     _listaNumeros.add('');
     _listaNumeros.shuffle();
-    _numeros.add(_listaNumeros.sublist(0, 4));
-    _numeros.add(_listaNumeros.sublist(4, 8));
-    _numeros.add(_listaNumeros.sublist(8, 12));
-    _numeros.add(_listaNumeros.sublist(12, 16));
+    _matrizNumeros.add(_listaNumeros.sublist(0, 4));
+    _matrizNumeros.add(_listaNumeros.sublist(4, 8));
+    _matrizNumeros.add(_listaNumeros.sublist(8, 12));
+    _matrizNumeros.add(_listaNumeros.sublist(12, 16));
   }
 
   /// Gera as linhas de números a partir da divisão da lista de números
   List<Widget> _gerarLinhas() {
     List<Widget> _linhas = List();
-    _linhas.add(NumberRow(_numeros[0], _apertarBotao));
-    _linhas.add(NumberRow(_numeros[1], _apertarBotao));
-    _linhas.add(NumberRow(_numeros[2], _apertarBotao));
-    _linhas.add(NumberRow(_numeros[3], _apertarBotao));
+    _linhas.add(NumberRow(_matrizNumeros[0], _apertarBotao));
+    _linhas.add(NumberRow(_matrizNumeros[1], _apertarBotao));
+    _linhas.add(NumberRow(_matrizNumeros[2], _apertarBotao));
+    _linhas.add(NumberRow(_matrizNumeros[3], _apertarBotao));
     return _linhas;
   }
 
@@ -155,7 +155,7 @@ class _NumberBoardState extends State<NumberBoard> {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: _widgetNumeros),
+            children: _widgetMatrizNumeros),
         flex: 4);
   }
 }
