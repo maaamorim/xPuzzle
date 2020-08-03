@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xPuzzle/components/number_block.dart';
+import 'number_block.dart';
 
 /// Componente que representa uma linha de números
 class NumberRow extends StatelessWidget {

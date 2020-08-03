@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xPuzzle/components/number_row.dart';
+import 'number_row.dart';
 
 /// Componente que representa o tabuleiro de números
 class NumberBoard extends StatefulWidget {
