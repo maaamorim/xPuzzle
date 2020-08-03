@@ -13,8 +13,8 @@ class _NumberBoardState extends State<NumberBoard> {
 
   @override
   void initState() {
-    _gerarNumeros();
-    _widgetMatrizNumeros = _gerarLinhas();
+    _gerarMatrizNumeros();
+    _widgetMatrizNumeros = _gerarWidgetMatrizNumeros();
     super.initState();
   }
 
@@ -22,52 +22,9 @@ class _NumberBoardState extends State<NumberBoard> {
   /// indicando o botão apertado em [botao]
   void _apertarBotao(String botao) {
     List<int> _posicao = _recuperarPosicao(botao);
-    String _movimento = _direcaoMovimento(_posicao);
-    if (_movimento != 'X') {
-      String aux;
-      switch (_movimento) {
-        case 'W':
-          setState(() {
-            aux = _matrizNumeros[_posicao[0]][_posicao[1]];
-            _matrizNumeros[_posicao[0]][_posicao[1]] =
-                _matrizNumeros[_posicao[0] - 1][_posicao[1]];
-            _matrizNumeros[_posicao[0] - 1][_posicao[1]] = aux;
-            _widgetMatrizNumeros = _gerarLinhas();
-          });
-          print(_matrizNumeros);
-          break;
-        case 'D':
-          setState(() {
-            aux = _matrizNumeros[_posicao[0]][_posicao[1]];
-            _matrizNumeros[_posicao[0]][_posicao[1]] =
-                _matrizNumeros[_posicao[0]][_posicao[1] + 1];
-            _matrizNumeros[_posicao[0]][_posicao[1] + 1] = aux;
-            _widgetMatrizNumeros = _gerarLinhas();
-          });
-          print(_matrizNumeros);
-          break;
-        case 'S':
-          setState(() {
-            aux = _matrizNumeros[_posicao[0]][_posicao[1]];
-            _matrizNumeros[_posicao[0]][_posicao[1]] =
-                _matrizNumeros[_posicao[0] + 1][_posicao[1]];
-            _matrizNumeros[_posicao[0] + 1][_posicao[1]] = aux;
-            _widgetMatrizNumeros = _gerarLinhas();
-          });
-          print(_matrizNumeros);
-          break;
-        case 'A':
-          setState(() {
-            aux = _matrizNumeros[_posicao[0]][_posicao[1]];
-            _matrizNumeros[_posicao[0]][_posicao[1]] =
-                _matrizNumeros[_posicao[0]][_posicao[1] - 1];
-            _matrizNumeros[_posicao[0]][_posicao[1] - 1] = aux;
-            _widgetMatrizNumeros = _gerarLinhas();
-          });
-          print(_matrizNumeros);
-          break;
-        default:
-      }
+    String _direcao = _direcaoMovimento(_posicao);
+    if (_direcao != 'X') {
+      _movimentarNaDirecao(_posicao, _direcao);
     }
   }
 
@@ -84,47 +41,71 @@ class _NumberBoardState extends State<NumberBoard> {
     throw ('Número não encontrado');
   }
 
+  /// Faz a movimentação do número que está na [posicao] na [direcao] informada
+  void _movimentarNaDirecao(List<int> posicao, String direcao) {
+    int _i = posicao[0];
+    int _j = posicao[1];
+    String _auxiliar = _matrizNumeros[_i][_j];
+    List<int> _posicaoDirecao = _recuperarPosicao('');
+    setState(() {
+      _matrizNumeros[_i][_j] = '';
+      _matrizNumeros[_posicaoDirecao[0]][_posicaoDirecao[1]] = _auxiliar;
+      _widgetMatrizNumeros = _gerarWidgetMatrizNumeros();
+    });
+  }
+
   /// Retorna a possível direção que o elemento na [posicao] poderá se mover,
   /// no formato 'W' (para cima), 'D' (direita), 'S' (baixo), 'A' (esquerda) ou 'X'
   /// caso o elemento não possa se mover
   String _direcaoMovimento(List<int> posicao) {
-    int _i = posicao[0];
-    int _j = posicao[1];
     List<String> _movimentos = List();
-    try {
-      _movimentos.add(_matrizNumeros[_i - 1][_j]);
-    } on RangeError {
-      _movimentos.add('X');
-    }
-    try {
-      _movimentos.add(_matrizNumeros[_i][_j + 1]);
-    } on RangeError {
-      _movimentos.add('X');
-    }
-    try {
-      _movimentos.add(_matrizNumeros[_i + 1][_j]);
-    } on RangeError {
-      _movimentos.add('X');
-    }
-    try {
-      _movimentos.add(_matrizNumeros[_i][_j - 1]);
-    } on RangeError {
-      _movimentos.add('X');
-    }
+    _movimentos.addAll([
+      _buscarElementoNaDirecao(posicao, 'W'),
+      _buscarElementoNaDirecao(posicao, 'A'),
+      _buscarElementoNaDirecao(posicao, 'S'),
+      _buscarElementoNaDirecao(posicao, 'D'),
+    ]);
     for (var i = 0; i < 4; i++) {
       if (_movimentos[i] == '') {
         if (i == 0) return 'W';
-        if (i == 1) return 'D';
-        if (i == 2) return 'S';
         if (i == 3) return 'A';
+        if (i == 2) return 'S';
+        if (i == 1) return 'D';
       }
     }
     return 'X';
   }
 
-  /// Gera a lista de números com valores embaralhados ou a partir de uma determinada
+  /// Retorna o elemento na [direcao] indicada ('W', 'A', 'S', 'D') tomando
+  /// as referencias definidas pela lista [posicoes] no formato (i, j)
+  String _buscarElementoNaDirecao(List<int> posicao, String direcao) {
+    int _i = posicao[0];
+    int _j = posicao[1];
+    try {
+      switch (direcao) {
+        case 'W':
+          return _matrizNumeros[_i - 1][_j];
+          break;
+        case 'A':
+          return _matrizNumeros[_i][_j - 1];
+          break;
+        case 'S':
+          return _matrizNumeros[_i + 1][_j];
+          break;
+        case 'D':
+          return _matrizNumeros[_i][_j + 1];
+          break;
+        default:
+          throw ('Direção inválida');
+      }
+    } on RangeError {
+      return 'X';
+    }
+  }
+
+  /// Gera a matriz de números com valores embaralhados ou a partir de uma determinada
   /// [lista] passada como argumento
-  void _gerarNumeros([List<String> lista]) {
+  void _gerarMatrizNumeros([List<String> lista]) {
     List<String> _listaNumeros;
     if (lista == null) {
       _listaNumeros = [for (var i = 1; i < 16; i++) i.toString()];
@@ -140,7 +121,7 @@ class _NumberBoardState extends State<NumberBoard> {
   }
 
   /// Gera as linhas de números a partir da divisão da lista de números
-  List<Widget> _gerarLinhas() {
+  List<Widget> _gerarWidgetMatrizNumeros() {
     List<Widget> _linhas = List();
     _linhas.add(NumberRow(_matrizNumeros[0], _apertarBotao));
     _linhas.add(NumberRow(_matrizNumeros[1], _apertarBotao));
