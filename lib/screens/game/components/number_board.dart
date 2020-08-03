@@ -23,7 +23,6 @@ class _NumberBoardState extends State<NumberBoard> {
   @override
   void initState() {
     _dimensaoMatriz = Constants.DIFICULDADES.indexOf(_dificuldade) + 3;
-    print(_dimensaoMatriz);
     _gerarMatrizNumeros(_dimensaoMatriz);
     _widgetMatrizNumeros = _gerarWidgetMatrizNumeros();
     super.initState();
@@ -145,6 +144,6 @@ class _NumberBoardState extends State<NumberBoard> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: _widgetMatrizNumeros),
-        flex: 4);
+        flex: 6);
   }
 }
