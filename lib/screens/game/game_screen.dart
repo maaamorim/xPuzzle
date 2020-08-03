@@ -2,7 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'components/number_board.dart';
 
+/// Página que contém componentes referentes ao jogo
 class GameScreen extends StatelessWidget {
+  final String _dificuldade;
+
+  GameScreen(this._dificuldade);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,14 +23,14 @@ class GameScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "X-Puzzle",
+                      'X-Puzzle',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                     )
                   ],
                 ),
                 flex: 1),
-            NumberBoard(),
+            NumberBoard(_dificuldade),
             Spacer(flex: 1)
           ],
         )));

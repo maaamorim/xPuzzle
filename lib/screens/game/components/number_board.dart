@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
 import 'number_row.dart';
+import 'package:xPuzzle/constants.dart' as Constants;
 
 /// Componente que representa o tabuleiro de números
 class NumberBoard extends StatefulWidget {
+  final String _dificuldade;
+
+  NumberBoard(this._dificuldade);
+
   @override
-  _NumberBoardState createState() => _NumberBoardState();
+  _NumberBoardState createState() => _NumberBoardState(_dificuldade);
 }
 
 class _NumberBoardState extends State<NumberBoard> {
+  String _dificuldade;
+  int _dimensaoMatriz;
   List<List<String>> _matrizNumeros = List<List<String>>();
   List<Widget> _widgetMatrizNumeros = List();
 
+  _NumberBoardState(this._dificuldade);
+
   @override
   void initState() {
-    _gerarMatrizNumeros();
+    _dimensaoMatriz = Constants.DIFICULDADES.indexOf(_dificuldade) + 3;
+    print(_dimensaoMatriz);
+    _gerarMatrizNumeros(_dimensaoMatriz);
     _widgetMatrizNumeros = _gerarWidgetMatrizNumeros();
     super.initState();
   }
@@ -31,8 +42,8 @@ class _NumberBoardState extends State<NumberBoard> {
   /// Recupera a posição de [numero] na matriz de números, retornando uma
   /// lista no formato [linha, coluna]
   List<int> _recuperarPosicao(String numero) {
-    for (var i = 0; i < 4; i++) {
-      for (var j = 0; j < 4; j++) {
+    for (var i = 0; i < _dimensaoMatriz; i++) {
+      for (var j = 0; j < _dimensaoMatriz; j++) {
         if (_matrizNumeros[i][j] == numero) {
           return [i, j];
         }
@@ -68,9 +79,9 @@ class _NumberBoardState extends State<NumberBoard> {
     for (var i = 0; i < 4; i++) {
       if (_movimentos[i] == '') {
         if (i == 0) return 'W';
-        if (i == 3) return 'A';
+        if (i == 1) return 'A';
         if (i == 2) return 'S';
-        if (i == 1) return 'D';
+        if (i == 3) return 'D';
       }
     }
     return 'X';
@@ -96,37 +107,34 @@ class _NumberBoardState extends State<NumberBoard> {
           return _matrizNumeros[_i][_j + 1];
           break;
         default:
-          throw ('Direção inválida');
+          return 'X';
       }
     } on RangeError {
       return 'X';
     }
   }
 
-  /// Gera a matriz de números com valores embaralhados ou a partir de uma determinada
-  /// [lista] passada como argumento
-  void _gerarMatrizNumeros([List<String> lista]) {
-    List<String> _listaNumeros;
-    if (lista == null) {
-      _listaNumeros = [for (var i = 1; i < 16; i++) i.toString()];
-    } else {
-      _listaNumeros = lista;
-    }
+  /// Gera a matriz de números com dimensão [dimensao] e com valores
+  /// embaralhados ou a partir de uma determinada [lista] passada como argumento
+  void _gerarMatrizNumeros(int dimensao) {
+    int _tamanho = dimensao * dimensao;
+    List<String> _listaNumeros = [
+      for (var i = 1; i < _tamanho; i++) i.toString()
+    ];
     _listaNumeros.add('');
     _listaNumeros.shuffle();
-    _matrizNumeros.add(_listaNumeros.sublist(0, 4));
-    _matrizNumeros.add(_listaNumeros.sublist(4, 8));
-    _matrizNumeros.add(_listaNumeros.sublist(8, 12));
-    _matrizNumeros.add(_listaNumeros.sublist(12, 16));
+    for (var i = 0; i < _tamanho; i += dimensao) {
+      var fim = (i + dimensao < _tamanho) ? i + dimensao : _tamanho;
+      _matrizNumeros.add(_listaNumeros.sublist(i, fim));
+    }
   }
 
   /// Gera as linhas de números a partir da divisão da lista de números
   List<Widget> _gerarWidgetMatrizNumeros() {
     List<Widget> _linhas = List();
-    _linhas.add(NumberRow(_matrizNumeros[0], _apertarBotao));
-    _linhas.add(NumberRow(_matrizNumeros[1], _apertarBotao));
-    _linhas.add(NumberRow(_matrizNumeros[2], _apertarBotao));
-    _linhas.add(NumberRow(_matrizNumeros[3], _apertarBotao));
+    _matrizNumeros.forEach((lista) {
+      _linhas.add(NumberRow(lista, _apertarBotao));
+    });
     return _linhas;
   }
 

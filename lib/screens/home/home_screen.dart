@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xPuzzle/screens/game/game_screen.dart';
+import 'package:xPuzzle/screens/home/components/difficulty_dropdown_button.dart';
+import 'package:xPuzzle/constants.dart' as Constants;
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -7,13 +9,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String dropdownValue = 'Médio (4x4)';
+  String _valorSelecionado = Constants.DIFICULDADES[1];
 
   void _iniciarJogo(context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GameScreen()),
+      MaterialPageRoute(builder: (context) => GameScreen(_valorSelecionado)),
     );
+  }
+
+  void _atualizarValorSelecionado(String novoValor) {
+    setState(() {
+      _valorSelecionado = novoValor;
+    });
   }
 
   @override
@@ -26,7 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
                 flex: 8,
                 child: Column(children: <Widget>[
-                  Text("Flutter X-Puzzle"),
+                  Text('Flutter X-Puzzle', style: TextStyle(fontSize: 24)),
+                  DifficultyDropdownButton(_atualizarValorSelecionado),
                   RaisedButton(
                       onPressed: () => _iniciarJogo(context),
                       child: Text('Jogar')),
