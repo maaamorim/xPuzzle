@@ -29,6 +29,15 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
   }
 
+  /// Sobrescrita do setState que impede erros ao se atualizar o estado quando se sai da
+  /// tela do jogo
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
   /// Inicia o relógio com incrementos de um segundo
   void _iniciarRelogio() {
     Timer(const Duration(seconds: 1), _callbackRelogioExecutando);
