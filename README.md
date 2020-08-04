@@ -11,3 +11,5 @@ Possui quatro níveis de dificuldade:
 ![mainScreen](screenshots/mainScreen.png)
 
 ![gameScreen](screenshots/gameScreen.png)
+
+![winScreen](screenshots/winScreen.png)
