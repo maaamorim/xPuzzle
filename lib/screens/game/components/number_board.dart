@@ -6,12 +6,14 @@ import 'package:xPuzzle/constants.dart' as Constants;
 class NumberBoard extends StatefulWidget {
   final String _dificuldade;
   final Function(List<List<String>>) _callbackVerificarVitoria;
+  final Function _callbackQuantidadeJogadas;
 
-  NumberBoard(this._dificuldade, this._callbackVerificarVitoria);
+  NumberBoard(this._dificuldade, this._callbackVerificarVitoria,
+      this._callbackQuantidadeJogadas);
 
   @override
-  _NumberBoardState createState() =>
-      _NumberBoardState(_dificuldade, _callbackVerificarVitoria);
+  _NumberBoardState createState() => _NumberBoardState(
+      _dificuldade, _callbackVerificarVitoria, this._callbackQuantidadeJogadas);
 }
 
 class _NumberBoardState extends State<NumberBoard> {
@@ -22,8 +24,10 @@ class _NumberBoardState extends State<NumberBoard> {
   List<Widget> _widgetMatrizNumeros = List();
 
   Function(List<List<String>>) _callbackVerificarVitoria;
+  Function _callbackQuantidadeJogadas;
 
-  _NumberBoardState(this._dificuldade, this._callbackVerificarVitoria);
+  _NumberBoardState(this._dificuldade, this._callbackVerificarVitoria,
+      this._callbackQuantidadeJogadas);
 
   @override
   void initState() {
@@ -36,6 +40,7 @@ class _NumberBoardState extends State<NumberBoard> {
   /// Callback enviada para os botões que recebe ação de apertar o botão,
   /// indicando o botão apertado em [botao]
   void _apertarBotao(String botao) {
+    _callbackQuantidadeJogadas();
     List<int> _posicao = _recuperarPosicao(botao);
     String _direcao = _direcaoMovimento(_posicao);
     if (_direcao != 'X') {

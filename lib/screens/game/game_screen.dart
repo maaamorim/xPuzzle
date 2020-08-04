@@ -18,6 +18,7 @@ class _GameScreenState extends State<GameScreen> {
 
   Stopwatch _relogio = Stopwatch();
   String _tempoTranscorrido = '00:00:00';
+  int _quantidadeJogadas = 0;
 
   _GameScreenState(this._dificuldade);
 
@@ -35,6 +36,12 @@ class _GameScreenState extends State<GameScreen> {
     if (mounted) {
       super.setState(fn);
     }
+  }
+
+  void _incrementarQuantidadeJogadas() {
+    setState(() {
+      _quantidadeJogadas++;
+    });
   }
 
   /// Verifica se usuário venceu o jogo, recebendo [matrizNumeros] após
@@ -55,8 +62,11 @@ class _GameScreenState extends State<GameScreen> {
           context: context,
           builder: (_) => AlertDialog(
                 title: Text('Parabéns!'),
-                content: Text(
-                    'Você venceu. Seu tempo foi de: ' + _tempoTranscorrido),
+                content: Text('Você venceu.\n\n'
+                        'Tempo: ' +
+                    _tempoTranscorrido +
+                    '\nQuantidade de Jogadas: ' +
+                    _quantidadeJogadas.toString()),
                 actions: <Widget>[
                   FlatButton(
                       onPressed: () => {
@@ -116,11 +126,16 @@ class _GameScreenState extends State<GameScreen> {
                     Text(
                       _tempoTranscorrido,
                       style: TextStyle(color: Constants.TEXT, fontSize: 30),
+                    ),
+                    Text(
+                      'Jogadas: ' + _quantidadeJogadas.toString(),
+                      style: TextStyle(color: Constants.TEXT, fontSize: 30),
                     )
                   ],
                 ),
                 flex: 2),
-            NumberBoard(_dificuldade, _verificarVitoria),
+            NumberBoard(
+                _dificuldade, _verificarVitoria, _incrementarQuantidadeJogadas),
             Spacer(flex: 1)
           ],
         )));
