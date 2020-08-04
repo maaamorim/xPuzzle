@@ -1,8 +1,7 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'components/number_board.dart';
+import 'package:xPuzzle/constants.dart' as Constants;
 
 /// Página que contém componentes referentes ao jogo
 class GameScreen extends StatefulWidget {
@@ -60,6 +59,7 @@ class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Constants.BACKGROUND,
         appBar: AppBar(
           title: Text('Flutter X-Puzzle'),
         ),
@@ -73,8 +73,7 @@ class _GameScreenState extends State<GameScreen> {
                   children: <Widget>[
                     Text(
                       _tempoTranscorrido,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                      style: TextStyle(color: Constants.TEXT, fontSize: 30),
                     )
                   ],
                 ),

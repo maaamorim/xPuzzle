@@ -11,9 +11,9 @@ class XPuzzleApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter X-Puzzle',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+          fontFamily: 'OpenSans',
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity),
       home: HomeScreen(),
     );
   }

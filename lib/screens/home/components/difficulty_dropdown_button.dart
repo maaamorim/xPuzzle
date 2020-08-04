@@ -21,13 +21,13 @@ class _DifficultyDropdownButtonState extends State<DifficultyDropdownButton> {
   Widget build(BuildContext context) {
     return DropdownButton<String>(
       value: _valorSelecionado,
-      icon: Icon(Icons.arrow_downward),
+      icon: Icon(Icons.arrow_downward, color: Constants.TEXT),
       iconSize: 24,
       elevation: 16,
-      style: TextStyle(color: Colors.deepPurple, fontSize: 16),
+      style: TextStyle(color: Constants.TEXT, fontSize: 20),
       underline: Container(
         height: 2,
-        color: Colors.deepPurpleAccent,
+        color: Constants.TEXT,
       ),
       onChanged: (String novoValor) {
         _callbackAtualizarValor(novoValor);
@@ -39,7 +39,7 @@ class _DifficultyDropdownButtonState extends State<DifficultyDropdownButton> {
           Constants.DIFICULDADES.map<DropdownMenuItem<String>>((String valor) {
         return DropdownMenuItem<String>(
           value: valor,
-          child: Text(valor),
+          child: Text(valor, style: TextStyle(color: Constants.TEXT)),
         );
       }).toList(),
     );
