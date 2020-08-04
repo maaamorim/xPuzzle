@@ -4,14 +4,15 @@ import 'number_block.dart';
 /// Componente que representa uma linha de números
 class NumberRow extends StatelessWidget {
   final List<String> _numeros;
-  final Function(String) _f;
+  final Function(String) __callbackApertarBotao;
+  final int _dimensao;
 
-  NumberRow(this._numeros, this._f);
+  NumberRow(this._numeros, this.__callbackApertarBotao, this._dimensao);
 
   List<Widget> _gerarNumeros() {
     List<Widget> _listaNumeros = List();
     _numeros.forEach((numero) {
-      _listaNumeros.add(NumberBlock(numero, _f));
+      _listaNumeros.add(NumberBlock(numero, __callbackApertarBotao, _dimensao));
     });
     return _listaNumeros;
   }

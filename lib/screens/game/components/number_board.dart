@@ -139,7 +139,7 @@ class _NumberBoardState extends State<NumberBoard> {
   List<Widget> _gerarWidgetMatrizNumeros() {
     List<Widget> _linhas = List();
     _matrizNumeros.forEach((lista) {
-      _linhas.add(NumberRow(lista, _apertarBotao));
+      _linhas.add(NumberRow(lista, _apertarBotao, _dimensaoMatriz));
     });
     return _linhas;
   }
