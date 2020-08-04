@@ -50,7 +50,23 @@ class _GameScreenState extends State<GameScreen> {
     ];
     _listaVitoria.add('');
     if (_verificarIgualdade(_listaVitoria, _listaMatrizNumeros)) {
-      print('Ganhou');
+      _relogio.stop();
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                title: Text('Parabéns!'),
+                content: Text(
+                    'Você venceu. Seu tempo foi de: ' + _tempoTranscorrido),
+                actions: <Widget>[
+                  FlatButton(
+                      onPressed: () => {
+                            Navigator.popUntil(
+                                context, (route) => route.isFirst)
+                          },
+                      child: Text('Ok!'))
+                ],
+              ),
+          barrierDismissible: false);
     }
   }
 
