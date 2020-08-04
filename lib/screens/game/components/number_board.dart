@@ -5,20 +5,25 @@ import 'package:xPuzzle/constants.dart' as Constants;
 /// Componente que representa o tabuleiro de números
 class NumberBoard extends StatefulWidget {
   final String _dificuldade;
+  final Function(List<List<String>>) _callbackVerificarVitoria;
 
-  NumberBoard(this._dificuldade);
+  NumberBoard(this._dificuldade, this._callbackVerificarVitoria);
 
   @override
-  _NumberBoardState createState() => _NumberBoardState(_dificuldade);
+  _NumberBoardState createState() =>
+      _NumberBoardState(_dificuldade, _callbackVerificarVitoria);
 }
 
 class _NumberBoardState extends State<NumberBoard> {
   String _dificuldade;
   int _dimensaoMatriz;
+
   List<List<String>> _matrizNumeros = List<List<String>>();
   List<Widget> _widgetMatrizNumeros = List();
 
-  _NumberBoardState(this._dificuldade);
+  Function(List<List<String>>) _callbackVerificarVitoria;
+
+  _NumberBoardState(this._dificuldade, this._callbackVerificarVitoria);
 
   @override
   void initState() {
@@ -62,6 +67,7 @@ class _NumberBoardState extends State<NumberBoard> {
       _matrizNumeros[_posicaoDirecao[0]][_posicaoDirecao[1]] = _auxiliar;
       _widgetMatrizNumeros = _gerarWidgetMatrizNumeros();
     });
+    _callbackVerificarVitoria(_matrizNumeros);
   }
 
   /// Retorna a possível direção que o elemento na [posicao] poderá se mover,
@@ -117,6 +123,7 @@ class _NumberBoardState extends State<NumberBoard> {
   /// embaralhados ou a partir de uma determinada [lista] passada como argumento
   void _gerarMatrizNumeros(int dimensao) {
     int _tamanho = dimensao * dimensao;
+    // List<String> _listaNumeros = Constants.DEBUG_ARRAY;
     List<String> _listaNumeros = [
       for (var i = 1; i < _tamanho; i++) i.toString()
     ];

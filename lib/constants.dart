@@ -11,3 +11,22 @@ const List<String> DIFICULDADES = [
 
 const Color BACKGROUND = Color(0xffC4E0F9);
 const Color TEXT = Color(0xff67AAF9);
+
+const List<String> DEBUG_ARRAY = [
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '10',
+  '11',
+  '12',
+  '13',
+  '14',
+  '',
+  '15',
+];

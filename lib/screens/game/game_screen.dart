@@ -37,6 +37,32 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
+  /// Verifica se usuário venceu o jogo, recebendo [matrizNumeros] após
+  /// todos os movimentos feitos
+  void _verificarVitoria(List<List<String>> matrizNumeros) {
+    List<String> _listaMatrizNumeros = List();
+    matrizNumeros.forEach((linhaNumero) {
+      _listaMatrizNumeros.addAll(linhaNumero);
+    });
+    List<String> _listaVitoria = [
+      for (var i = 1; i < matrizNumeros.length * matrizNumeros.length; i++)
+        i.toString()
+    ];
+    _listaVitoria.add('');
+    if (_verificarIgualdade(_listaVitoria, _listaMatrizNumeros)) {
+      print('Ganhou');
+    }
+  }
+
+  /// Verifica igualdade entre duas listas [l1] e [l2]
+  bool _verificarIgualdade(List<String> l1, List<String> l2) {
+    var i = -1;
+    return l1.every((elemento) {
+      i++;
+      return l2[i] == elemento;
+    });
+  }
+
   /// Inicia o relógio com incrementos de um segundo
   void _iniciarRelogio() {
     Timer(const Duration(seconds: 1), _callbackRelogioExecutando);
@@ -78,7 +104,7 @@ class _GameScreenState extends State<GameScreen> {
                   ],
                 ),
                 flex: 2),
-            NumberBoard(_dificuldade),
+            NumberBoard(_dificuldade, _verificarVitoria),
             Spacer(flex: 1)
           ],
         )));
