@@ -1,6 +1,8 @@
 # xPuzzle
 
-> Implementação do [15-puzzle](https://en.wikipedia.org/wiki/15_puzzle), feita em Flutter.
+> Implementação do [15-puzzle](https://en.wikipedia.org/wiki/15_puzzle), feita em Flutter. O objetivo do jogo é ordenar os números dentro do quadrado.
+
+![puzzleWikipedia](https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/15-puzzle_magical.svg/330px-15-puzzle_magical.svg.png)
 
 ## **Funcionalidades**
   - Múltiplas opções de dificuldade
