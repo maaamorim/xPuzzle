@@ -11,10 +11,10 @@ class NumberBlock extends StatelessWidget {
   /// Retorna o tamanho do texto do botão baseado no valor da dimensão da
   /// matriz contido em _dimensao
   double _gerarTamanhoTextoBotao() {
-    if (_dimensao == 3) return 32;
-    if (_dimensao == 4) return 26;
-    if (_dimensao == 5) return 24;
-    if (_dimensao == 6) return 22;
+    if (_dimensao == 3) return 36;
+    if (_dimensao == 4) return 32;
+    if (_dimensao == 5) return 28;
+    if (_dimensao == 6) return 24;
     throw ('Erro ao gerar tamanho do botão');
   }
 
@@ -22,7 +22,7 @@ class NumberBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-          child: FlatButton(
+          child: RaisedButton(
               onPressed: () => {_callbackApertarBotao(_numero)},
               child: Text(
                 _numero,

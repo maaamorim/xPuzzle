@@ -31,21 +31,16 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(title: Text('Flutter X-Puzzle')),
         body: Center(
           child: Column(children: <Widget>[
-            Spacer(flex: 5),
+            Spacer(flex: 7),
             Expanded(
                 flex: 12,
                 child: Column(children: <Widget>[
-                  Container(
-                      padding: EdgeInsets.only(bottom: 25),
-                      child: Text('X-Puzzle',
-                          style:
-                              TextStyle(fontSize: 30, color: Constants.TEXT))),
                   Container(
                       padding: EdgeInsets.only(bottom: 50),
                       child:
                           DifficultyDropdownButton(_atualizarValorSelecionado)),
                   ButtonTheme(
-                    minWidth: 140.0,
+                    minWidth: 200.0,
                     height: 50.0,
                     child: RaisedButton(
                         shape: RoundedRectangleBorder(
@@ -55,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: () => _iniciarJogo(context),
                         child: Text('Jogar',
                             style:
-                                TextStyle(fontSize: 20, color: Colors.white))),
+                                TextStyle(fontSize: 22, color: Colors.white))),
                   )
                 ])),
             Expanded(

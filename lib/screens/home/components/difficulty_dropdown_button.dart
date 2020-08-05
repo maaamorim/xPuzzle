@@ -24,7 +24,7 @@ class _DifficultyDropdownButtonState extends State<DifficultyDropdownButton> {
       icon: Icon(Icons.arrow_downward, color: Constants.TEXT),
       iconSize: 24,
       elevation: 16,
-      style: TextStyle(color: Constants.TEXT, fontSize: 20),
+      style: TextStyle(color: Constants.TEXT, fontSize: 22),
       underline: Container(
         height: 2,
         color: Constants.TEXT,
