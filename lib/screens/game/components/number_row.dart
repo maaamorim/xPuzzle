@@ -3,8 +3,8 @@ import 'number_block.dart';
 
 /// Componente que representa uma linha de números
 class NumberRow extends StatelessWidget {
-  final List<String> _numeros;
-  final Function(String) __callbackApertarBotao;
+  final List<int> _numeros;
+  final Function(int) __callbackApertarBotao;
   final int _dimensao;
 
   NumberRow(this._numeros, this.__callbackApertarBotao, this._dimensao);

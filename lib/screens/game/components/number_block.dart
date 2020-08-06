@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 /// Componente que representa um bloco com número
 class NumberBlock extends StatelessWidget {
-  final String _numero;
-  final Function(String) _callbackApertarBotao;
+  final int _numero;
+  final Function(int) _callbackApertarBotao;
   final int _dimensao;
 
   NumberBlock(this._numero, this._callbackApertarBotao, this._dimensao);
@@ -18,6 +18,15 @@ class NumberBlock extends StatelessWidget {
     throw ('Erro ao gerar tamanho do botão');
   }
 
+  /// Renderiza o número no bloco do widget, fazendo tratamento de zero
+  String _renderizarNumero() {
+    if (_numero != 0) {
+      return _numero.toString();
+    } else {
+      return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -25,7 +34,7 @@ class NumberBlock extends StatelessWidget {
           child: RaisedButton(
               onPressed: () => {_callbackApertarBotao(_numero)},
               child: Text(
-                _numero,
+                _renderizarNumero(),
                 style: TextStyle(
                     fontSize: _gerarTamanhoTextoBotao(), color: Colors.blue),
               )),

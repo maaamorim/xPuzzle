@@ -5,7 +5,7 @@ import 'package:xPuzzle/constants.dart' as Constants;
 /// Componente que representa o tabuleiro de números
 class NumberBoard extends StatefulWidget {
   final String _dificuldade;
-  final Function(List<List<String>>) _callbackVerificarVitoria;
+  final Function(List<List<int>>) _callbackVerificarVitoria;
   final Function _callbackQuantidadeJogadas;
 
   NumberBoard(this._dificuldade, this._callbackVerificarVitoria,
@@ -20,10 +20,10 @@ class _NumberBoardState extends State<NumberBoard> {
   String _dificuldade;
   int _dimensaoMatriz;
 
-  List<List<String>> _matrizNumeros = List<List<String>>();
+  List<List<int>> _matrizNumeros = List<List<int>>();
   List<Widget> _widgetMatrizNumeros = List();
 
-  Function(List<List<String>>) _callbackVerificarVitoria;
+  Function(List<List<int>>) _callbackVerificarVitoria;
   Function _callbackQuantidadeJogadas;
 
   _NumberBoardState(this._dificuldade, this._callbackVerificarVitoria,
@@ -39,7 +39,7 @@ class _NumberBoardState extends State<NumberBoard> {
 
   /// Callback enviada para os botões que recebe ação de apertar o botão,
   /// indicando o botão apertado em [botao]
-  void _apertarBotao(String botao) {
+  void _apertarBotao(int botao) {
     _callbackQuantidadeJogadas();
     List<int> _posicao = _recuperarPosicao(botao);
     String _direcao = _direcaoMovimento(_posicao);
@@ -50,7 +50,7 @@ class _NumberBoardState extends State<NumberBoard> {
 
   /// Recupera a posição de [numero] na matriz de números, retornando uma
   /// lista no formato [linha, coluna]
-  List<int> _recuperarPosicao(String numero) {
+  List<int> _recuperarPosicao(int numero) {
     for (var i = 0; i < _dimensaoMatriz; i++) {
       for (var j = 0; j < _dimensaoMatriz; j++) {
         if (_matrizNumeros[i][j] == numero) {
@@ -65,10 +65,10 @@ class _NumberBoardState extends State<NumberBoard> {
   void _movimentarNaDirecao(List<int> posicao, String direcao) {
     int _i = posicao[0];
     int _j = posicao[1];
-    String _auxiliar = _matrizNumeros[_i][_j];
-    List<int> _posicaoDirecao = _recuperarPosicao('');
+    int _auxiliar = _matrizNumeros[_i][_j];
+    List<int> _posicaoDirecao = _recuperarPosicao(0);
     setState(() {
-      _matrizNumeros[_i][_j] = '';
+      _matrizNumeros[_i][_j] = 0;
       _matrizNumeros[_posicaoDirecao[0]][_posicaoDirecao[1]] = _auxiliar;
       _widgetMatrizNumeros = _gerarWidgetMatrizNumeros();
     });
@@ -79,7 +79,7 @@ class _NumberBoardState extends State<NumberBoard> {
   /// no formato 'W' (para cima), 'D' (direita), 'S' (baixo), 'A' (esquerda) ou 'X'
   /// caso o elemento não possa se mover
   String _direcaoMovimento(List<int> posicao) {
-    List<String> _movimentos = List();
+    List<int> _movimentos = List();
     _movimentos.addAll([
       _buscarElementoNaDirecao(posicao, 'W'),
       _buscarElementoNaDirecao(posicao, 'A'),
@@ -87,7 +87,7 @@ class _NumberBoardState extends State<NumberBoard> {
       _buscarElementoNaDirecao(posicao, 'D'),
     ]);
     for (var i = 0; i < 4; i++) {
-      if (_movimentos[i] == '') {
+      if (_movimentos[i] == 0) {
         if (i == 0) return 'W';
         if (i == 1) return 'A';
         if (i == 2) return 'S';
@@ -99,7 +99,7 @@ class _NumberBoardState extends State<NumberBoard> {
 
   /// Retorna o elemento na [direcao] indicada ('W', 'A', 'S', 'D') tomando
   /// as referencias definidas pela lista [posicoes] no formato (i, j)
-  String _buscarElementoNaDirecao(List<int> posicao, String direcao) {
+  int _buscarElementoNaDirecao(List<int> posicao, String direcao) {
     int _i = posicao[0];
     int _j = posicao[1];
     try {
@@ -117,10 +117,10 @@ class _NumberBoardState extends State<NumberBoard> {
           return _matrizNumeros[_i][_j + 1];
           break;
         default:
-          return 'X';
+          return -1;
       }
     } on RangeError {
-      return 'X';
+      return -1;
     }
   }
 
@@ -129,10 +129,7 @@ class _NumberBoardState extends State<NumberBoard> {
   void _gerarMatrizNumeros(int dimensao) {
     int _tamanho = dimensao * dimensao;
     // List<String> _listaNumeros = Constants.DEBUG_ARRAY;
-    List<String> _listaNumeros = [
-      for (var i = 1; i < _tamanho; i++) i.toString()
-    ];
-    _listaNumeros.add('');
+    List<int> _listaNumeros = [for (var i = 0; i < _tamanho; i++) i];
     _listaNumeros.shuffle();
     for (var i = 0; i < _tamanho; i += dimensao) {
       var fim = (i + dimensao < _tamanho) ? i + dimensao : _tamanho;

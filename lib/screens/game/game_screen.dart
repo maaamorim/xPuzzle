@@ -46,16 +46,15 @@ class _GameScreenState extends State<GameScreen> {
 
   /// Verifica se usuário venceu o jogo, recebendo [matrizNumeros] após
   /// todos os movimentos feitos
-  void _verificarVitoria(List<List<String>> matrizNumeros) {
-    List<String> _listaMatrizNumeros = List();
+  void _verificarVitoria(List<List<int>> matrizNumeros) {
+    List<int> _listaMatrizNumeros = List();
     matrizNumeros.forEach((linhaNumero) {
       _listaMatrizNumeros.addAll(linhaNumero);
     });
-    List<String> _listaVitoria = [
-      for (var i = 1; i < matrizNumeros.length * matrizNumeros.length; i++)
-        i.toString()
+    List<int> _listaVitoria = [
+      for (var i = 1; i < matrizNumeros.length * matrizNumeros.length; i++) i
     ];
-    _listaVitoria.add('');
+    _listaVitoria.add(0);
     if (_verificarIgualdade(_listaVitoria, _listaMatrizNumeros)) {
       _relogio.stop();
       showDialog(
@@ -81,7 +80,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   /// Verifica igualdade entre duas listas [l1] e [l2]
-  bool _verificarIgualdade(List<String> l1, List<String> l2) {
+  bool _verificarIgualdade(List<int> l1, List<int> l2) {
     var i = -1;
     return l1.every((elemento) {
       i++;
