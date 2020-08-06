@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:xPuzzle/screens/game/game_screen.dart';
 import 'package:xPuzzle/screens/home/components/difficulty_dropdown_button.dart';
 import 'package:xPuzzle/constants.dart' as Constants;
@@ -55,11 +57,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 ])),
             Expanded(
                 flex: 1,
-                child: Text('feito por MateusCFC',
+                child: Text.rich(TextSpan(
+                    text: 'feito por ',
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black)))
+                        color: Colors.black),
+                    children: [
+                      TextSpan(
+                          text: 'maaamorim',
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () =>
+                                launch('https://github.com/maaamorim/xPuzzle'),
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue))
+                    ])))
           ]),
         ));
   }
