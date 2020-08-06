@@ -128,13 +128,58 @@ class _NumberBoardState extends State<NumberBoard> {
   /// embaralhados ou a partir de uma determinada [lista] passada como argumento
   void _gerarMatrizNumeros(int dimensao) {
     int _tamanho = dimensao * dimensao;
-    // List<String> _listaNumeros = Constants.DEBUG_ARRAY;
-    List<int> _listaNumeros = [for (var i = 0; i < _tamanho; i++) i];
-    _listaNumeros.shuffle();
+    List<int> _listaNumeros = _gerarListaNumerosInicial(_tamanho);
     for (var i = 0; i < _tamanho; i += dimensao) {
       var fim = (i + dimensao < _tamanho) ? i + dimensao : _tamanho;
       _matrizNumeros.add(_listaNumeros.sublist(i, fim));
     }
+  }
+
+  /// Gera a lista inicial dos números, que servirá como base para a matriz de números,
+  /// a partir de um [tamanho]
+  List<int> _gerarListaNumerosInicial(int tamanho) {
+    if (Constants.DEBUG_MODE) {
+      return Constants.DEBUG_ARRAY;
+    }
+    List<int> _lista = List();
+    do {
+      _lista = [for (var i = 0; i < tamanho; i++) i];
+      _lista.shuffle();
+    } while (!_verificarListaSolucionavel(_lista));
+    return _lista;
+  }
+
+  /// Verifica se a lista [estadoInicial] é solucionável dentro das regras do jogo
+  /// Baseado em https://jvm-gaming.org/t/the-impossible-15-puzzle/53369/14
+  bool _verificarListaSolucionavel(List<int> estadoInicial) {
+    int _tamanho = estadoInicial.length;
+    List<int> _posicoes = List(_tamanho);
+    for (int i = 0; i < _tamanho; i++) {
+      _posicoes[estadoInicial[i]] = (i + 1) % _tamanho;
+    }
+
+    int _linha = (_posicoes[0] - 1) ~/ 4;
+    int _coluna = (_posicoes[0] - 1) - _linha * 4;
+    bool _estadoPar = _posicoes[0] == 0 || _linha % 2 == _coluna % 2;
+
+    int _ciclosPares = 0;
+    List<bool> _visitado = [for (var i = 0; i < _tamanho; i++) false];
+    for (int i = 0; i < _tamanho; i++) {
+      if (_visitado[i]) {
+        continue;
+      }
+      int tamanhoCiclo = 0;
+      int proximoBloco = i;
+      while (!_visitado[proximoBloco]) {
+        tamanhoCiclo++;
+        _visitado[proximoBloco] = true;
+        proximoBloco = _posicoes[proximoBloco];
+      }
+      if (tamanhoCiclo % 2 == 0) {
+        _ciclosPares++;
+      }
+    }
+    return _estadoPar == (_ciclosPares % 2 == 0);
   }
 
   /// Gera as linhas de números a partir da divisão da lista de números
