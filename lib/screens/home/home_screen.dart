@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xPuzzle/screens/game/game_screen.dart';
+import 'package:xPuzzle/screens/history/history_screen.dart';
 import 'package:xPuzzle/screens/home/components/difficulty_dropdown_button.dart';
 import 'package:xPuzzle/constants.dart' as Constants;
 
@@ -20,9 +21,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  /// TODO: adicionar página de histórico
   void _abrirHistorico(context) {
-    print('hist');
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HistoryScreen()),
+    );
   }
 
   void _atualizarValorSelecionado(String novoValor) {
