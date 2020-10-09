@@ -12,7 +12,7 @@ const List<String> DIFICULDADES = [
 const Color BACKGROUND = Color(0xffC4E0F9);
 const Color TEXT = Color(0xff67AAF9);
 
-const bool DEBUG_MODE = false;
+const bool DEBUG_MODE = true;
 
 const List<int> DEBUG_ARRAY = [
   1,
