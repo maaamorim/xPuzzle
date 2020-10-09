@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'components/number_board.dart';
 import 'package:xPuzzle/constants.dart' as Constants;
 
@@ -46,7 +47,7 @@ class _GameScreenState extends State<GameScreen> {
 
   /// Verifica se usuário venceu o jogo, recebendo [matrizNumeros] após
   /// todos os movimentos feitos
-  void _verificarVitoria(List<List<int>> matrizNumeros) {
+  void _verificarVitoria(List<List<int>> matrizNumeros) async {
     List<int> _listaMatrizNumeros = List();
     matrizNumeros.forEach((linhaNumero) {
       _listaMatrizNumeros.addAll(linhaNumero);
@@ -57,6 +58,21 @@ class _GameScreenState extends State<GameScreen> {
     _listaVitoria.add(0);
     if (_verificarIgualdade(_listaVitoria, _listaMatrizNumeros)) {
       _relogio.stop();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String _registroHistorico =
+          '${DateTime.now().toString().split('.')[0]},$_tempoTranscorrido,$_quantidadeJogadas';
+      String _historico = prefs.getString('historico-$_dificuldade');
+      if (_historico != null) {
+        prefs.setString(
+          'historico-$_dificuldade',
+          _registroHistorico + '\n' + _historico,
+        );
+      } else {
+        prefs.setString(
+          'historico-$_dificuldade',
+          _registroHistorico,
+        );
+      }
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
