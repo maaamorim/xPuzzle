@@ -20,6 +20,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// TODO: adicionar página de histórico
+  void _abrirHistorico(context) {
+    print('hist');
+  }
+
   void _atualizarValorSelecionado(String novoValor) {
     setState(() {
       _valorSelecionado = novoValor;
@@ -35,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(children: <Widget>[
             Spacer(flex: 7),
             Expanded(
-                flex: 12,
+                flex: 10,
                 child: Column(children: <Widget>[
                   Container(
                       padding: EdgeInsets.only(bottom: 50),
@@ -53,6 +58,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text('Jogar',
                             style:
                                 TextStyle(fontSize: 22, color: Colors.white))),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  FlatButton(
+                    child: Text('Histórico'),
+                    onPressed: () => _abrirHistorico(context),
                   )
                 ])),
             Expanded(
